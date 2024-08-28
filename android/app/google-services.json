@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "442222561921",
+    "project_id": "waving-164fa",
+    "storage_bucket": "waving-164fa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:442222561921:android:392fa9b9215640139adb80",
+        "android_client_info": {
+          "package_name": "com.example.add_boat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5pZLGeTXSbtLPvUc2TUQfKZnWArt0qx4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
