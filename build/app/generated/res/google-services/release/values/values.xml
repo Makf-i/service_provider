@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="gcm_defaultSenderId" translatable="false">442222561921</string>
+    <string name="google_api_key" translatable="false">AIzaSyA5pZLGeTXSbtLPvUc2TUQfKZnWArt0qx4</string>
+    <string name="google_app_id" translatable="false">1:442222561921:android:392fa9b9215640139adb80</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyA5pZLGeTXSbtLPvUc2TUQfKZnWArt0qx4</string>
+    <string name="google_storage_bucket" translatable="false">waving-164fa.appspot.com</string>
+    <string name="project_id" translatable="false">waving-164fa</string>
+</resources>

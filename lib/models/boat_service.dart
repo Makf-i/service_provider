@@ -12,6 +12,42 @@ class BoatService {
   final List<String>? specialNotes;
   final List<String>? meals;
 
+  BoatService({
+    required this.id,
+    this.isSelected = false,
+    required this.serviceName,
+    required this.description,
+    required this.rate,
+    required this.image,
+    required this.avlbSeats,
+    this.details,
+    this.amenities,
+    this.safetyFeatures,
+    this.specialNotes,
+    this.meals,
+  });
+
+  //this method will convert dynamic into BoatService
+
+  factory BoatService.fromMap(String id, Map<String, dynamic> data) {
+    return BoatService(
+      id: id,
+      isSelected: data['isSelected'] ?? false,
+      serviceName: data['service_name'] ?? '',
+      description: data['description'] ?? '',
+      rate: data['rate'] ?? '',
+      image: data['image'] ?? '',
+      avlbSeats: data['avlbSeats'] ?? '',
+      details: data['details'],
+      amenities: (data['amenities'] as Map<String, dynamic>?)?.keys.toList(),
+      safetyFeatures:
+          (data['safetyFeatures'] as Map<String, dynamic>?)?.keys.toList(),
+      specialNotes:
+          (data['specialNotes'] as Map<String, dynamic>?)?.keys.toList(),
+      meals: (data['meals'] as Map<String, dynamic>?)?.keys.toList(),
+    );
+  }
+
   BoatService copyWith({
     bool? isSelected,
     String? serviceName,
@@ -40,19 +76,4 @@ class BoatService {
       meals: meals ?? this.meals,
     );
   }
-
-  BoatService({
-    required this.id,
-    this.isSelected = false,
-    required this.serviceName,
-    required this.description,
-    required this.rate,
-    required this.image,
-    required this.avlbSeats,
-    this.details,
-    this.amenities,
-    this.safetyFeatures,
-    this.specialNotes,
-    this.meals,
-  });
 }

@@ -1,10 +1,11 @@
 import 'package:add_boat/firebase_options.dart';
+import 'package:add_boat/screens/auth.dart';
 import 'package:add_boat/screens/tabs.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:universal_platform/universal_platform.dart';
 
 final theme = ThemeData(
   useMaterial3: true,
@@ -14,12 +15,9 @@ final theme = ThemeData(
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  if (UniversalPlatform.isWeb) {
-    // Web-specific Firebase initialization
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-  }
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   runApp(const ProviderScope(child: MyApp()));
 }
@@ -32,7 +30,21 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Boat Service Manager',
       theme: theme,
-      home: const TabsScreen(),
+      home: StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+                child: CircularProgressIndicator(
+              color: Colors.amber,
+            ));
+          }
+          if (snapshot.hasData) {
+            return TabsScreen();
+          }
+          return AuthScreen();
+        },
+      ),
     );
   }
 }

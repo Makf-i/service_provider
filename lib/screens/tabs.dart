@@ -1,24 +1,49 @@
-import 'package:add_boat/screens/dashboard.dart';
 import 'package:add_boat/screens/manage_boat.dart';
 import 'package:add_boat/screens/manage_bookings.dart';
+import 'package:add_boat/screens/manage_meals.dart';
+import 'package:add_boat/screens/manage_pricing.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class TabsScreen extends StatefulWidget {
+class TabsScreen extends ConsumerStatefulWidget {
   const TabsScreen({super.key});
 
   @override
-  State<TabsScreen> createState() => _TabsScreenState();
+  ConsumerState<TabsScreen> createState() => _TabsScreenState();
 }
 
-class _TabsScreenState extends State<TabsScreen> {
+class _TabsScreenState extends ConsumerState<TabsScreen> {
+  Widget _buildListTile(String title, int index) {
+    return ListTile(
+      contentPadding: const EdgeInsets.only(left: 20, right: 30),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(9),
+      ),
+      selected: _selectedIndex == index,
+      selectedTileColor: Colors.blue,
+      title: Text(
+        title,
+        style: TextStyle(
+          color: _selectedIndex == index ? Colors.white : Colors.black,
+        ),
+      ),
+      onTap: () {
+        setState(() {
+          _selectedIndex = index;
+        });
+      },
+    );
+  }
+
   int _selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     Widget content = const ManageBoatScreen();
     if (_selectedIndex == 0) {
-      content = const Dashboard();
+      content = const ManageBoatScreen();
     }
     if (_selectedIndex == 1) {
       content = ManageBookingsScreen();
@@ -26,27 +51,42 @@ class _TabsScreenState extends State<TabsScreen> {
     if (_selectedIndex == 2) {
       content = const ManageBoatScreen();
     }
-    if (_selectedIndex == 3) {}
-    if (_selectedIndex == 4) {}
+    if (_selectedIndex == 3) {
+      content = const ManageMeals();
+    }
+    if (_selectedIndex == 4) {
+      content = const ManagePricing();
+    }
 
     return Scaffold(
       body: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(
-              left: 52.0,
-              top: 20,
-              bottom: 20.0,
-            ),
-            child: Text(
-              'GTM',
-              style: GoogleFonts.montserrat(
-                  color: Colors.blueAccent,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 30),
-            ),
+          Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 52.0,
+                  top: 20,
+                  bottom: 20.0,
+                ),
+                child: Text(
+                  'GTM',
+                  style: GoogleFonts.montserrat(
+                      color: Colors.blueAccent,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 30),
+                ),
+              ),
+              const Spacer(),
+              IconButton(
+                  tooltip: "Log Out",
+                  onPressed: () {
+                    FirebaseAuth.instance.signOut();
+                  },
+                  icon: const Icon(Icons.logout)),
+            ],
           ),
           const Divider(height: 0),
           Expanded(
@@ -130,8 +170,19 @@ class _TabsScreenState extends State<TabsScreen> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(9),
                             ),
+                            selected: _selectedIndex == 3,
+                            selectedTileColor: _selectedIndex == 3
+                                ? Colors.blue
+                                : Colors.black,
+                            focusColor: Colors.blue,
                             selectedColor: Colors.blue,
-                            title: const Text('Manage Meals'),
+                            title: Text(
+                              'Manage Meals',
+                              style: TextStyle(
+                                  color: _selectedIndex == 3
+                                      ? Colors.white
+                                      : Colors.black),
+                            ),
                             onTap: () {
                               setState(() {
                                 _selectedIndex = 3;
@@ -144,9 +195,19 @@ class _TabsScreenState extends State<TabsScreen> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(9),
                             ),
-                            selectedColor: Colors.white,
+                            selected: _selectedIndex == 4,
+                            selectedTileColor: _selectedIndex == 4
+                                ? Colors.blue
+                                : Colors.black,
                             focusColor: Colors.blue,
-                            title: const Text('Manage Pricing'),
+                            selectedColor: Colors.blue,
+                            title: Text(
+                              'Manage Pricing',
+                              style: TextStyle(
+                                  color: _selectedIndex == 4
+                                      ? Colors.white
+                                      : Colors.black),
+                            ),
                             onTap: () {
                               setState(() {
                                 _selectedIndex = 4;

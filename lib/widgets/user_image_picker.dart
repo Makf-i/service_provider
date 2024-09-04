@@ -61,19 +61,23 @@ class _UserImagePickerState extends State<UserImagePicker> {
 
     return GestureDetector(
       onTap: _pickImage,
-      child: Container(
-        width: 886,
-        height: 499,
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey),
-          borderRadius: BorderRadius.circular(5),
+      child: IntrinsicHeight(
+        child: IntrinsicWidth(
+          child: Container(
+            width: 800,
+            height: 400,
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey),
+              borderRadius: BorderRadius.circular(5),
+            ),
+            child: Center(
+                child: _pickedImageFile != null
+                    ? widget.clear
+                        ? hintForImage
+                        : Image.memory(_pickedImageFile!)
+                    : hintForImage),
+          ),
         ),
-        child: Center(
-            child: _pickedImageFile != null
-                ? widget.clear
-                    ? hintForImage
-                    : Image.memory(_pickedImageFile!)
-                : hintForImage),
       ),
     );
   }

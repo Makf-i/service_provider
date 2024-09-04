@@ -13,17 +13,21 @@ class ManageBookingsScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: ListView.builder(
-        itemCount: 30,
-        itemBuilder: (context, index) {
-          return Card(
-            child: ListTile(
-              title: Text('Booking ${index + 1}'),
-              subtitle: Text('Date: 2022-01-01'),
-              trailing: Icon(Icons.delete),
-            ),
-          );
-        },
+      body: Padding(
+        padding:
+            const EdgeInsets.only(left: 200, right: 200, top: 30, bottom: 100),
+        child: ListView.builder(
+          itemCount: 30,
+          itemBuilder: (context, index) {
+            return Card(
+              child: ListTile(
+                title: Text('Booking ${index + 1}'),
+                subtitle: Text('Date: 2022-01-01'),
+                trailing: Icon(Icons.delete),
+              ),
+            );
+          },
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
